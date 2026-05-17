@@ -1,0 +1,120 @@
+===================================================================
+   NOTHING PHONE (2a) DUAL BOOT PROJECT - OFFICIAL COMMANDS LIST
+===================================================================
+Maintainer: Nikhil-Development-Android
+Group: https://t.me/+aUQEu17jvVo3MjBl
+
+[IMPORTANT: Run these commands sequentially. Do not skip any step.]
+
+-------------------------------------------------------------------
+STEP 0: BOOTLOADER UNLOCKING
+-------------------------------------------------------------------
+# Reboot phone to fastboot mode (Ensure USB Debugging is ON)
+adb reboot bootloader
+
+# Unlock the bootloader (Confirm on phone using Volume & Power buttons)
+fastboot flashing unlock
+
+
+-------------------------------------------------------------------
+STEP 1: FLASH TWRP RECOVERY
+-------------------------------------------------------------------
+# Reboot to fastboot mode again if needed
+adb reboot bootloader
+
+# Flash TWRP to both slot A and slot B
+fastboot flash vendor_boot_a twrp.img
+fastboot flash vendor_boot_b twrp.img
+
+
+-------------------------------------------------------------------
+STEP 2: PARTITION TOOL SETUP (IN RECOVERY)
+-------------------------------------------------------------------
+# Reboot from fastboot straight into TWRP recovery
+fastboot reboot recovery
+
+# [CRITICAL] Go to TWRP screen -> Mount -> Tap on "Disable MTP" before running next commands
+
+# Push parted and format tools to temporary system directory
+adb push parted /sbin
+adb push mkfs.ext4 /sbin
+
+# Open adb shell to set executive permissions
+adb shell
+
+# Run these inside adb shell to give permissions:
+chmod 777 /sbin/parted
+chmod 777 /sbin/mkfs.ext4
+
+# Launch parted tool on the correct storage block (sdc)
+parted /dev/block/sdc
+
+# Change display unit to Gigabytes
+unit gb
+
+# Print current partition list (Note down start/end values of 82 & 83 in Notepad!)
+print
+
+
+-------------------------------------------------------------------
+STEP 3: BACKUP & MODIFY PARTITIONS (INSIDE PARTED)
+-------------------------------------------------------------------
+# Remove partition 82 (userdata)
+rm 82
+
+# Temporary exit parted to pull backup
+quit
+
+# [MANDATORY] Create a backup of partition 83 (sdc83) onto your PC
+adb shell dd if=/dev/block/sdc83 of=/sdcard/sdc83.img
+adb pull /sdcard/sdc83.img
+
+# Re-enter parted tool after backup is successfully saved on PC
+parted /dev/block/sdc
+unit gb
+
+# Remove partition 83
+rm 83
+
+
+-------------------------------------------------------------------
+STEP 4: CREATE & FORMAT NEW DUAL BOOT LAYOUT (INSIDE PARTED)
+-------------------------------------------------------------------
+# [EXAMPLE FOR 128GB VARIANT - Change values if using 256GB model]
+# Create userdata for Slot A (Custom ROM)
+mkpart userdata ext4 12.1gb 69.6gb
+
+# Create userdata_b for Slot B (Stock ROM)
+mkpart userdata_b ext4 69.6gb 128gb
+
+# Assign proper identities to the newly created partitions
+name 82 userdata
+name 83 userdata_b
+
+# Exit parted tool completely
+quit
+
+# Format both new partitions to F2FS filesystem for optimal performance
+make_f2fs /dev/block/sdc82
+make_f2fs /dev/block/sdc83
+
+
+-------------------------------------------------------------------
+STEP 5: RESTORE PARTITION 83 BACKUP
+-------------------------------------------------------------------
+# Push the saved sdc83 backup image back to phone's sdcard
+adb push sdc83.img /sdcard/
+
+# Flash the backup image back into the new partition 83 block
+adb shell dd if=/sdcard/sdc83.img of=/dev/block/sdc83
+
+
+-------------------------------------------------------------------
+STEP 6: FLASHING THE MODIFIED DUAL BOOT ROM
+-------------------------------------------------------------------
+# Reboot device back into bootloader mode
+adb reboot bootloader
+
+# [FINAL STEP] Now run your automated flash script or manual fastboot commands 
+# to flash the Tweaked Fastboot Flashable Stock ROM provided by Nikhil-Development.
+===================================================================
