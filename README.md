@@ -43,4 +43,156 @@ Dual Boot setup shuru karne ke liye aapke Nothing Phone (2a) ka bootloader unloc
 3. **Fastboot Mode:** Phone ko PC se connect karein aur command prompt (CMD) me yeh command run karke phone ko fastboot mode me dalein:
    ```bash
    adb reboot bootloader
-   
+   4. **Unlock Command:** Fastboot mode me aane ke baad, PC par yeh command run karein:
+```bash
+fastboot flashing unlock
+
+```
+ 5. **Confirm on Phone:** Phone ki screen par Volume buttons ka use karke Unlock the bootloader ko select karein aur Power button daba dein. *(Note: Isse aapka phone wipe/reset ho jayega).*
+## 🛠️ Section 5: Step 1: Flashing TWRP Recovery (TWRP Flash Kaise Karein)
+Bootloader unlock karne ke baad, phone ko fastboot mode me re-boot karein aur TWRP recovery ko flash karein:
+ 1. **Reboot to Fastboot Mode:**
+```bash
+adb reboot bootloader
+
+```
+ 2. **Flash TWRP to Both Slots (A & B):**
+   PC par cmd/terminal open karein aur yeh command run karein:
+```bash
+fastboot flash vendor_boot_a twrp.img
+fastboot flash vendor_boot_b twrp.img
+
+```
+## 🏗️ Section 6: Step 2: Partitioning Initialization (Parted Tool Setup)
+TWRP flash karne ke baad phone ko recovery me le jayein aur partition table ko initialize karne ke liye yeh steps follow karein:
+ 1. **Reboot to Recovery Mode:**
+```bash
+fastboot reboot recovery
+
+```
+ 2. **Disable MTP (Zaroori Step):**
+   Phone me TWRP screen par **Mount** option me jayein aur **Disable MTP** par tap karein. Isse adb push me koi error nahi aayega.
+ 3. **Connect Phone to PC:** USB cable ke zariye phone ko PC se connect rakhein.
+ 4. **Push Tools & Set Permissions:**
+   PC par Command Prompt (CMD) open karein aur ek-ek karke yeh saare commands run karein:
+```bash
+adb push parted /sbin
+adb push mkfs.ext4 /sbin
+adb shell
+chmod 777 /sbin/parted
+chmod 777 /sbin/mkfs.ext4
+
+```
+ 5. **Open Partition Table:**
+   Ab phone ki internal storage layout open karne ke liye yeh command run karein:
+```bash
+parted /dev/block/sdc
+
+```
+ 6. **Change Unit to GB (Confusion Door Karne Ke Liye):**
+   Parted mode me sizes ko KB/MB ke bajaye GB me dekhne ke liye print chalane se pehle yeh command run karein:
+```text
+unit gb
+
+```
+ 7. **Print Partition List:**
+   Ab apne phone ki saari partitions ki list dekhne ke liye type karein:
+```text
+print
+
+```
+## ✂️ Section 7: Step 3: Backup & Modifying Partition Table
+⚠️ **RULE:** Jis partition ko resize karna hota hai, uske baad wale partitions ko reverse order me remove kiya jata hai. Hum yahan userdata layout par kaam kar rahe hain.
+ 1. **Copy & Paste to Notepad:**
+   print chalane ke baad, terminal me partition **82** aur **83** ki details (Start and End Values) ko copy karke PC par **Notepad** me safe save kar lein.
+ 2. **Delete Partition 82:**
+```text
+rm 82
+
+```
+ 3. **Backup Partition 83 (Crucial Step):**
+   Partition 83 delete karne se pehle uska backup PC par lena mandatory hai. Parted se temporary bahar aane ke liye type karein:
+```text
+quit
+
+```
+Ab CMD me yeh commands run karke partition 83 ka backup PC par copy karein:
+```bash
+adb shell dd if=/dev/block/sdc83 of=/sdcard/sdc83.img
+adb pull /sdcard/sdc83.img
+
+```
+ 4. **Delete Partition 83:**
+   Backup successfully PC par copy hone ke baad, wapas parted me jayein:
+```bash
+parted /dev/block/sdc
+unit gb
+
+```
+Aur partition 83 ko remove karein:
+```text
+rm 83
+
+```
+## 📐 Section 8: Step 4: Creating & Formatting New Partitions
+Ab hum dono OS ke liye alag-alag userdata space create karenge. Apne phone ke variant ke hisab se calculations follow karein:
+### 📱 For 128GB Variant (Example Layout):
+ * **Userdata (Slot A - Custom ROM):** 12.1 se 69.6
+ * **Userdata_b (Slot B - Stock ROM):** 69.6 se 128
+*(Note: Agar aapka **256GB Variant** hai, to isi tarah space ko divide karke size calculate karein, jaise 12.1 se 134 aur 134 se 256).*
+### 1. Create New Partitions (Parted ke andar):
+```text
+mkpart userdata 12.1gb 69.6gb
+mkpart userdata 69.6gb 128gb
+
+```
+*(Apne variant ke calculated GB values hi enter karein).*
+### 2. Name the Partitions:
+Partitions ko sahi identity dene ke liye yeh commands run karein:
+```text
+name 82 userdata
+name 83 userdata
+
+```
+### 3. Exit Parted:
+```text
+quit
+
+```
+### 4. Format New Partitions to F2FS:
+Ab terminal (adb shell) me dono naye partitions ko f2fs filesystem me format karein:
+```bash
+make_f2fs /dev/block/sdc82
+make_f2fs /dev/block/sdc83
+
+```
+## 💾 Section 9: Step 5: Restoring Partition 83 Backup (sdc83 Restore)
+Naye partitions banne aur format hone ke baad, ab hum PC par save kiye gaye partition 83 ke backup ko wapas restore karenge:
+ 1. **Push Backup Image to Phone:**
+   PC par CMD open karein aur yeh command run karein:
+```bash
+adb push sdc83.img /sdcard/
+
+```
+ 2. **Flash Backup to New Partition 83 (sdc83):**
+   Image push hone ke baad, use dd command se wapas original location par flash karein:
+```bash
+adb shell dd if=/sdcard/sdc83.img of=/dev/block/sdc83
+
+```
+## 📦 Section 10: Step 6: Flashing the Dual Boot ROM
+Saare partitions taiyar aur restore hone ke baad, ab phone ko wapas fastboot mode me le jana hai:
+ 1. **Reboot to Bootloader:**
+```bash
+adb reboot bootloader
+
+```
+ 2. **Flash the Modified ROM:**
+   Ab mere (Nikhil-Development) dwara provide ki gayi **tweaked/edited Fastboot Flashable Stock ROM** ko flash karein, jo user data_b aur baki settings ke sath safely dual boot run karegi.
+**Created and maintained by Nikhil-Development-Android**"""
+with open("README_Full_Guide.txt", "w", encoding="utf-8") as f:
+f.write(readme_content)
+print("File written successfully!")
+```
+Your TXT file is ready
+[file-tag: code-generated-file-0-1779015131893652045]
