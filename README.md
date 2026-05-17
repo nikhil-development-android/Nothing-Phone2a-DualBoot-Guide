@@ -1,17 +1,15 @@
-🚀 Nothing Phone (2a) Dual Boot Project
+# 🚀 Nothing Phone (2a) Dual Boot Project
 
 > Advanced Dual Boot Setup Guide for Nothing Phone (2a) (pacman)
 
+---
 
+## 📱 Introduction
 
-📱 Introduction
-
-Welcome! 👋
+Welcome! 👋  
 This guide explains how to set up Dual Boot on the Nothing Phone (2a) (codename: pacman).
 
-> यह गाइड Nothing Phone (2a) में Dual Boot सेटअप करने के लिए है।
-
-
+<small>यह गाइड Nothing Phone (2a) में Dual Boot सेटअप करने के लिए है।</small>
 
 With this setup, you can run:
 
@@ -21,198 +19,146 @@ With this setup, you can run:
 
 ✅ Two systems on one device
 
-
-> एक ही फोन में दो सिस्टम चला सकते हैं।
-
-
-
+<small>एक ही फोन में दो सिस्टम चला सकते हैं।</small>
 
 ---
 
-⚠️ Important Warnings
+## ⚠️ Important Warnings
 
-🛑 Full Data Wipe
+### 🛑 Full Data Wipe
 
 This process will completely erase:
 
-Internal storage
+- Internal storage
+- Apps
+- Photos/Videos
+- Documents
 
-Apps
+<small>पूरा फोन wipe हो जाएगा।</small>
 
-Photos/Videos
+👉 **Take a full backup before starting.**
 
-Documents
-
-
-> पूरा फोन wipe हो जाएगा।
-
-
-
-👉 Take a full backup before starting.
-
-> शुरू करने से पहले backup जरूर लें।
-
-
-
+<small>शुरू करने से पहले backup जरूर लें।</small>
 
 ---
 
-⚡ OTA Update Warning
+### ⚡ OTA Update Warning
 
 This setup works only on a Vendor-Fastboot base.
 
-❌ Never install OTA updates
+❌ **Never install OTA updates**
 
 OTA updates can:
+- Break dual boot
+- Cause bootloops
+- Corrupt partitions
 
-Break dual boot
+<small>OTA update dual boot को खराब कर सकता है।</small>
 
-Cause bootloops
-
-Corrupt partitions
-
-
-> OTA update dual boot को खराब कर सकता है।
-
-
-
-✅ Manual Flash Only
+### ✅ Manual Flash Only
 
 Always flash modified fastboot ROM packages manually.
 
-> हमेशा modified ROM manually flash करें।
-
-
-
+<small>हमेशा modified ROM manually flash करें।</small>
 
 ---
 
-🛠️ Downloads & Requirements
+## 🛠️ Downloads & Requirements
 
-📂 Required Files
+### 📂 Required Files
 
-TWRP Recovery
+- TWRP Recovery
+- Parted Tool
+- Commands.txt
+- ADB & Fastboot Drivers
 
-Parted Tool
-
-Commands.txt
-
-ADB & Fastboot Drivers
-
-
-> जरूरी फाइलें डाउनलोड करें।
-
-
-
+<small>जरूरी फाइलें डाउनलोड करें।</small>
 
 ---
 
-📥 Download Required Files
+### 📥 Download Required Files
 
 Download:
 
-TWRP Recovery
-
-Parted Tool
-
-Commands.txt
-
+- TWRP Recovery
+- Parted Tool
+- Commands.txt
 
 from the GitHub repository below:
 
-🔗 GitHub Repository:
+🔗 **GitHub Repository:**  
 https://github.com/Nikhil-Development-Android
 
-> हरे रंग वाले Code बटन पर क्लिक करें।
-
-
-
+<small>हरे रंग वाले Code बटन पर क्लिक करें।</small>
 
 ---
 
-📥 Download Dual Boot ROM
+### 📥 Download Dual Boot ROM
 
 Download the latest Dual Boot ROM package from the official release page:
 
-🔗 Releases Page:
+🔗 **Releases Page:**  
 https://github.com/Nikhil-Development-Android/releases
 
-> केवल Nothing Phone (2a) build डाउनलोड करें।
-
-
-
+<small>केवल Nothing Phone (2a) build डाउनलोड करें।</small>
 
 ---
 
-📢 Telegram Group
+### 📢 Telegram Group
 
 Get latest:
 
-ADB & Fastboot Tools
+- ADB & Fastboot Tools
+- Drivers
+- ROM Updates
+- Fixed Files
+- Recovery Tools
 
-Drivers
-
-ROM Updates
-
-Fixed Files
-
-Recovery Tools
-
-
-🔗 Telegram Group:
+🔗 **Telegram Group:**  
 https://t.me/+aUQEu17jvVo3MjBl
 
-> लेटेस्ट tools और updates यहां मिलेंगे।
-
-
-
+<small>लेटेस्ट tools और updates यहां मिलेंगे।</small>
 
 ---
 
-🔓 Step 0 — Unlock Bootloader
+## 🔓 Step 0 — Unlock Bootloader
 
-🔧 Enable Developer Options
+### 🔧 Enable Developer Options
 
-Go to: Settings → About Phone → Build Number
+Go to: `Settings → About Phone → Build Number`
 
 Tap Build Number 7 times.
 
-> Build Number पर 7 बार टैप करें।
-
-
-
+<small>Build Number पर 7 बार टैप करें।</small>
 
 ---
 
-🔧 Enable OEM Unlocking
+### 🔧 Enable OEM Unlocking
 
-Go to: Settings → System → Developer Options
+Go to: `Settings → System → Developer Options`
 
 Enable:
 
-OEM Unlocking
+- OEM Unlocking
+- USB Debugging
 
-USB Debugging
-
-
-> OEM Unlocking और USB Debugging ON करें।
-
-
-
+<small>OEM Unlocking और USB Debugging ON करें।</small>
 
 ---
 
-🔄 Reboot to Fastboot
+### 🔄 Reboot to Fastboot
 
+```bash
 adb reboot bootloader
-
+```
 
 ---
 
 🔓 Unlock Bootloader
 
+```bash
 fastboot flashing unlock
-
+```
 
 ---
 
@@ -222,10 +168,7 @@ Use the Volume Buttons to select: Yes or Unlock the bootloader
 
 Press the Power Button to confirm.
 
-> फोन reset हो जाएगा।
-
-
-
+<small>फोन reset हो जाएगा।</small>
 
 ---
 
@@ -233,20 +176,20 @@ Press the Power Button to confirm.
 
 🔄 Reboot to Fastboot
 
+```bash
 adb reboot bootloader
-
+```
 
 ---
 
 📂 Flash TWRP on Both Slots
 
+```bash
 fastboot flash vendor_boot_a twrp.img
 fastboot flash vendor_boot_b twrp.img
+```
 
-> दोनों slots में flash करें।
-
-
-
+<small>दोनों slots में flash करें।</small>
 
 ---
 
@@ -254,8 +197,9 @@ fastboot flash vendor_boot_b twrp.img
 
 🔄 Boot Into Recovery
 
+```bash
 fastboot reboot recovery
-
+```
 
 ---
 
@@ -263,46 +207,45 @@ fastboot reboot recovery
 
 In TWRP: Mount → Disable MTP
 
-> adb push error रोकने के लिए।
-
-
-
+<small>adb push error रोकने के लिए।</small>
 
 ---
 
 📂 Push Required Tools
 
+```bash
 adb push parted /sbin
 adb push mkfs.ext4 /sbin
 adb shell
 chmod 777 /sbin/parted
 chmod 777 /sbin/mkfs.ext4
-
+```
 
 ---
 
 📂 Open Partition Table
 
+```bash
 parted /dev/block/sdc
-
+```
 
 ---
 
 📏 Change Unit to GB
 
+```bash
 unit gb
-
+```
 
 ---
 
 📋 Print Partition List
 
+```bash
 print
+```
 
-> GB unit calculations आसान बनाती है।
-
-
-
+<small>GB unit calculations आसान बनाती है।</small>
 
 ---
 
@@ -312,17 +255,15 @@ print
 
 Copy partition 82 and 83 Start/End values into Notepad.
 
-> Partition details सेव करें।
-
-
-
+<small>Partition details सेव करें।</small>
 
 ---
 
 ❌ Remove Partition 82
 
+```bash
 rm 82
-
+```
 
 ---
 
@@ -330,17 +271,18 @@ rm 82
 
 Exit parted:
 
+```bash
 quit
+```
 
 Then run:
 
+```bash
 adb shell dd if=/dev/block/sdc83 of=/sdcard/sdc83.img
 adb pull /sdcard/sdc83.img
+```
 
-> Backup skip मत करें।
-
-
-
+<small>Backup skip मत करें।</small>
 
 ---
 
@@ -348,13 +290,16 @@ adb pull /sdcard/sdc83.img
 
 Re-enter parted:
 
+```bash
 parted /dev/block/sdc
 unit gb
+```
 
 Then:
 
+```bash
 rm 83
-
+```
 
 ---
 
@@ -362,51 +307,48 @@ rm 83
 
 📱 Example Layout (128GB Variant)
 
-Partition	Size
-
-userdata	12.1GB → 69.6GB
-userdata_b	69.6GB → 128GB
-
-
+Partition Size
+userdata 12.1GB → 69.6GB
+userdata_b 69.6GB → 128GB
 
 ---
 
 ➕ Create New Partitions
 
+```bash
 mkpart userdata ext4 12.1gb 69.6gb
 mkpart userdata_b ext4 69.6gb 128gb
+```
 
-> 256GB model में values अलग होंगी।
-
-
-
+<small>256GB model में values अलग होंगी।</small>
 
 ---
 
 🏷️ Rename Partitions
 
+```bash
 name 82 userdata
 name 83 userdata_b
-
+```
 
 ---
 
 🚪 Exit Parted
 
+```bash
 quit
-
+```
 
 ---
 
 📂 Format Partitions
 
+```bash
 make_f2fs /dev/block/sdc82
 make_f2fs /dev/block/sdc83
+```
 
-> F2FS Android performance बेहतर बनाता है।
-
-
-
+<small>F2FS Android performance बेहतर बनाता है।</small>
 
 ---
 
@@ -414,19 +356,19 @@ make_f2fs /dev/block/sdc83
 
 📤 Push Backup Image
 
+```bash
 adb push sdc83.img /sdcard/
-
+```
 
 ---
 
 ♻️ Restore Backup
 
+```bash
 adb shell dd if=/sdcard/sdc83.img of=/dev/block/sdc83
+```
 
-> Restore पूरा होने तक इंतजार करें।
-
-
-
+<small>Restore पूरा होने तक इंतजार करें।</small>
 
 ---
 
@@ -434,8 +376,9 @@ adb shell dd if=/sdcard/sdc83.img of=/dev/block/sdc83
 
 🔄 Reboot to Bootloader
 
+```bash
 adb reboot bootloader
-
+```
 
 ---
 
@@ -444,31 +387,23 @@ adb reboot bootloader
 Download the tweaked Fastboot Flashable Stock ROM provided by me
 (Nikhil-Development).
 
-> मेरे द्वारा दी गई modified ROM flash करें।
-
-
-
+<small>मेरे द्वारा दी गई modified ROM flash करें।</small>
 
 ---
 
 This special build is engineered to:
 
-Respect your new partition layout
+· Respect your new partition layout
+· Properly use userdata_b for Stock OS
+· Keep dual boot stable
 
-Properly use userdata_b for Stock OS
-
-Keep dual boot stable
-
-
-> यह build dual boot stability के लिए बनाई गई है।
-
-
-
+<small>यह build dual boot stability के लिए बनाई गई है।</small>
 
 ---
 
 👨‍💻 Credits
 
 Created & Maintained By
-
 Nikhil-Development-Android 🚀
+
+```
