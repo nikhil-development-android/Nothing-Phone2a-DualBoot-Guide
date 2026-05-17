@@ -63,33 +63,19 @@ Always flash modified fastboot ROM packages manually.
 
 ---
 
-## 🛠️ Downloads & Requirements
-
-### 📂 Required Files
-
-- TWRP Recovery
-- Parted Tool
-- Commands.txt
-- ADB & Fastboot Drivers
-
-<small>जरूरी फाइलें डाउनलोड करें।</small>
-
 ---
 
-### 📥 Download Required Files
+## 🛠️ Section 3: Downloads & Requirements (Zaroori Files)
 
-Download:
+PC me ADB & Fastboot Drivers install rakhein aur neeche di gayi files upar diye gaye specific folders ya links se download kar lein:
 
-- TWRP Recovery
-- Parted Tool
-- Commands.txt
+### 📂 Required Files (Repository Se Download Karein)
+* 📄 **`commands.txt`:** Saare partitioning aur flashing commands ki ready-made text file.
+* 📄 **`parted` & `mkfs.ext4`:** Partition layout modify karne ke tools.
 
-from the GitHub repository below:
-
-🔗 **GitHub Repository:**  
-https://github.com/Nikhil-Development-Android
-
-<small>हरे रंग वाले Code बटन पर क्लिक करें।</small>
+### 📥 Download TWRP Recovery (Links)
+* 💿 [Download Pre-Compiled TWRP.img (From My Releases)](https://github.com/Nikhil-Development-Android/releases) 👈 *(Mobile users direct yahan se compiled file download karein)*
+* 📂 [TWRP Device Source Tree by Sidharthify](https://github.com/sidharthify/twrp_device_nothing_pacman) 👈 *(Source code explore karne ke liye)*
 
 ---
 
