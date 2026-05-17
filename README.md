@@ -1,194 +1,470 @@
-# Nothing Phone (2a) Dual Boot Project 🚀
+🚀 Nothing Phone (2a) Dual Boot Project
 
-## 📱 Parichay (Introduction)
-Welcome! 👋 Ye ek bilkul naya aur advanced project he **Nothing Phone (2a) [pacman]** par **Dual Boot** configuration ko successfully setup karne ka. 
+📱 Introduction
 
-Agar aap ek hi phone me Stock Nothing OS ka maza bhi lena chahte hain aur sath me kisi custom ported ROM ko bhi explore karna chahte hain, to yeh guide aur project aap hi ke liye hai! Is project ki madad se aap ek advanced partitioning layout ke sath apne phone me dual boot ka maza le sakte hain.
+Welcome! 👋
+This guide explains how to set up Dual Boot on the Nothing Phone (2a) (codename: pacman).
 
----
+> यह गाइड Nothing Phone (2a) में Dual Boot सेटअप करने के लिए है।
 
-## 🚨 Section 2: Warnings & Critical Data Backup (Chetavni aur Backup)
 
-⚠️ **IMPORTANT DISCLAIMER:** Yeh ek bahut hi advanced process hai. Choti si galti se phone brick ho sakta hai, isliye sab kuch apne risk par karein!
 
-### 🛑 Data Wipe Alert (Aapka Data Delete Hoga!)
-- **100% Data Wipe:** Is dual boot process me partitions ko re-size aur modify kiya jayega, jisse aapka saara **Internal Storage aur Data poori tarah wipe (delete) ho jayega**.
-- **Backup Mandatory:** Process shuru karne se pehle apne saare Photos, Videos, Documents aur WhatsApp data ka backup apne PC ya kisi external drive me **ZAROOR** le lein.
+With this setup, you can run:
 
-### ⚡ Vendor-Fastboot Base & OTA Warning (Sabse Zaroori Baat!)
-- **Dual Boot Base:** Yeh dual boot setup poori tarah **Vendor-Fastboot Base** par kaam karta hai.
-- **OTA Update Update Crash:** Agar aapne stock settings se koi bhi official **OTA update** kiya, to aapka dual boot setup turant **crash** ho jayega aur phone bootloop me ja sakta hai.
-- **Manual Flash Only:** Isliye official OTA update ko bilkul block kar dein. Jab bhi koi naya update aayega, aapko use **Manually Flash** karna hoga. 
-- **Update Files:** Manual update ke liye jo bhi edited aur tweaked files hongi, wo **Main (Nikhil-Development)** isee project par provide kurunga.
+✅ Stock Nothing OS
 
----
+✅ Custom ROM / Ported ROM
 
-## 🛠️ Section 3: Downloads & Requirements (Zaroori Files)
+✅ Two systems on one device
 
-PC me ADB & Fastboot Drivers install rakhein aur neeche di gayi files upar main folder se download kar lein, aur baki tools ke liye Telegram Group join karein:
 
-- 📂 **TWRP Recovery:** Nothing Phone (2a) compatible recovery file.
-- 📂 **Parted Tool:** Partition table modify karne ke liye modified tool.
-- 📂 **Commands.txt:** Saare partitioning aur flashing commands ki ready-made text file.
-- 📢 **ADB Fastboot Tools & Drivers:** Latest drivers aur tools hamesha mere Telegram Group par update hote rahenge. [Download from My Telegram Group](https://t.me/star7725)
+> एक ही फोन में दो सिस्टम चला सकते हैं।
+
+
+
 
 ---
 
-## 🔓 Section 4: Step 0: Bootloader Unlocking (Bootloader Unlock Kaise Karein)
+⚠️ Important Warnings
 
-Dual Boot setup shuru karne ke liye aapke Nothing Phone (2a) ka bootloader unlocked hona zaroori hai. Agar unlock nahi hai, to in steps ko follow karein:
+🛑 Full Data Wipe
 
-1. **Enable Developer Options:** Phone ki Settings -> About Phone me jayein aur `Build Number` par 7 baar click karein.
-2. **OEM Unlocking:** Settings -> System -> Developer Options me jakar `OEM Unlocking` aur `USB Debugging` ko ON kar dein.
-3. **Fastboot Mode:** Phone ko PC se connect karein aur command prompt (CMD) me yeh command run karke phone ko fastboot mode me dalein:
-```bash
+This process will completely erase:
+
+Internal storage
+
+Apps
+
+Photos/Videos
+
+Documents
+
+
+> पूरा फोन wipe हो जाएगा।
+
+
+
+👉 Take a full backup before starting.
+
+> शुरू करने से पहले backup जरूर लें।
+
+
+
+
+---
+
+⚡ OTA Update Warning
+
+This setup works only on a Vendor-Fastboot base.
+
+❌ Never install OTA updates
+
+OTA updates can:
+
+Break dual boot
+
+Cause bootloops
+
+Corrupt partitions
+
+
+> OTA update dual boot को खराब कर सकता है।
+
+
+
+✅ Manual Flash Only
+
+Always flash modified fastboot ROM packages manually.
+
+> हमेशा modified ROM manually flash करें।
+
+
+
+
+---
+
+🛠️ Downloads & Requirements
+
+📂 Required Files
+
+TWRP Recovery
+
+Parted Tool
+
+Commands.txt
+
+ADB & Fastboot Drivers
+
+
+> जरूरी फाइलें डाउनलोड करें।
+
+
+
+
+---
+
+📥 Download Required Files
+
+Download:
+
+TWRP Recovery
+
+Parted Tool
+
+Commands.txt
+
+
+from the GitHub repository below:
+
+🔗 GitHub Repository:
+https://github.com/Nikhil-Development-Android
+
+> हरे रंग वाले Code बटन पर क्लिक करें।
+
+
+
+
+---
+
+📥 Download Dual Boot ROM
+
+Download the latest Dual Boot ROM package from the official release page:
+
+🔗 Releases Page:
+https://github.com/Nikhil-Development-Android/releases
+
+> केवल Nothing Phone (2a) build डाउनलोड करें।
+
+
+
+
+---
+
+📢 Telegram Group
+
+Get latest:
+
+ADB & Fastboot Tools
+
+Drivers
+
+ROM Updates
+
+Fixed Files
+
+Recovery Tools
+
+
+🔗 Telegram Group:
+https://t.me/+aUQEu17jvVo3MjBl
+
+> लेटेस्ट tools और updates यहां मिलेंगे।
+
+
+
+
+---
+
+🔓 Step 0 — Unlock Bootloader
+
+🔧 Enable Developer Options
+
+Go to: Settings → About Phone → Build Number
+
+Tap Build Number 7 times.
+
+> Build Number पर 7 बार टैप करें।
+
+
+
+
+---
+
+🔧 Enable OEM Unlocking
+
+Go to: Settings → System → Developer Options
+
+Enable:
+
+OEM Unlocking
+
+USB Debugging
+
+
+> OEM Unlocking और USB Debugging ON करें।
+
+
+
+
+---
+
+🔄 Reboot to Fastboot
+
 adb reboot bootloader
-```
- 4. **Unlock Command:** Fastboot mode me aane ke baad, PC par yeh command run karein:
-```bash
+
+
+---
+
+🔓 Unlock Bootloader
+
 fastboot flashing unlock
 
-```
- 5. **Confirm on Phone:** Phone ki screen par Volume buttons ka use karke Unlock the bootloader ko select karein aur Power button daba dein. *(Note: Isse aapka phone wipe/reset ho jayega).*
-## 🛠️ Section 5: Step 1: Flashing TWRP Recovery (TWRP Flash Kaise Karein)
-Bootloader unlock karne ke baad, phone ko fastboot mode me re-boot karein aur TWRP recovery ko flash karein:
- 1. **Reboot to Fastboot Mode:**
-```bash
+
+---
+
+✅ Confirm on Phone
+
+Use the Volume Buttons to select: Yes or Unlock the bootloader
+
+Press the Power Button to confirm.
+
+> फोन reset हो जाएगा।
+
+
+
+
+---
+
+🛠️ Step 1 — Flash TWRP Recovery
+
+🔄 Reboot to Fastboot
+
 adb reboot bootloader
 
-```
- 2. **Flash TWRP to Both Slots (A & B):**
-   PC par cmd/terminal open karein aur yeh command run karein:
-```bash
+
+---
+
+📂 Flash TWRP on Both Slots
+
 fastboot flash vendor_boot_a twrp.img
 fastboot flash vendor_boot_b twrp.img
 
-```
-## 🏗️ Section 6: Step 2: Partitioning Initialization (Parted Tool Setup)
-TWRP flash karne ke baad phone ko recovery me le jayein aur partition table ko initialize karne ke liye yeh steps follow karein:
- 1. **Reboot to Recovery Mode:**
-```bash
+> दोनों slots में flash करें।
+
+
+
+
+---
+
+🏗️ Step 2 — Partition Tool Setup
+
+🔄 Boot Into Recovery
+
 fastboot reboot recovery
 
-```
- 2. **Disable MTP (Zaroori Step):**
-   Phone me TWRP screen par **Mount** option me jayein aur **Disable MTP** par tap karein. Isse adb push me koi error nahi aayega.
- 3. **Connect Phone to PC:** USB cable ke zariye phone ko PC se connect rakhein.
- 4. **Push Tools & Set Permissions:**
-   PC par Command Prompt (CMD) open karein aur ek-ek karke yeh saare commands run karein:
-```bash
+
+---
+
+❌ Disable MTP
+
+In TWRP: Mount → Disable MTP
+
+> adb push error रोकने के लिए।
+
+
+
+
+---
+
+📂 Push Required Tools
+
 adb push parted /sbin
 adb push mkfs.ext4 /sbin
 adb shell
 chmod 777 /sbin/parted
 chmod 777 /sbin/mkfs.ext4
 
-```
- 5. **Open Partition Table:**
-   Ab phone ki internal storage layout open karne ke liye yeh command run karein:
-```bash
+
+---
+
+📂 Open Partition Table
+
 parted /dev/block/sdc
 
-```
- 6. **Change Unit to GB (Confusion Door Karne Ke Liye):**
-   Parted mode me sizes ko KB/MB ke bajaye GB me dekhne ke liye print chalane se pehle yeh command run karein:
-```text
+
+---
+
+📏 Change Unit to GB
+
 unit gb
 
-```
- 7. **Print Partition List:**
-   Ab apne phone ki saari partitions ki list dekhne ke liye type karein:
-```text
+
+---
+
+📋 Print Partition List
+
 print
 
-```
-## ✂️ Section 7: Step 3: Backup & Modifying Partition Table
-⚠️ **RULE:** Jis partition ko resize karna hota hai, uske baad wale partitions ko reverse order me remove kiya jata hai. Hum yahan userdata layout par kaam kar rahe hain.
- 1. **Copy & Paste to Notepad:**
-   print chalane ke baad, terminal me partition **82** aur **83** ki details (Start and End Values) ko copy karke PC par **Notepad** me safe save kar lein.
- 2. **Delete Partition 82:**
-```text
+> GB unit calculations आसान बनाती है।
+
+
+
+
+---
+
+✂️ Step 3 — Backup & Modify Partitions
+
+💾 Save Partition Info
+
+Copy partition 82 and 83 Start/End values into Notepad.
+
+> Partition details सेव करें।
+
+
+
+
+---
+
+❌ Remove Partition 82
+
 rm 82
 
-```
- 3. **Backup Partition 83 (Crucial Step):**
-   Partition 83 delete karne se pehle uska backup PC par lena mandatory hai. Parted se temporary bahar aane ke liye type karein:
-```text
+
+---
+
+💾 Backup Partition 83
+
+Exit parted:
+
 quit
 
-```
-Ab CMD me yeh commands run karke partition 83 ka backup PC par copy karein:
-```bash
+Then run:
+
 adb shell dd if=/dev/block/sdc83 of=/sdcard/sdc83.img
 adb pull /sdcard/sdc83.img
 
-```
- 4. **Delete Partition 83:**
-   Backup successfully PC par copy hone ke baad, wapas parted me jayein:
-```bash
+> Backup skip मत करें।
+
+
+
+
+---
+
+❌ Delete Partition 83
+
+Re-enter parted:
+
 parted /dev/block/sdc
 unit gb
 
-```
-Aur partition 83 ko remove karein:
-```text
+Then:
+
 rm 83
 
-```
-## 📐 Section 8: Step 4: Creating & Formatting New Partitions
-Ab hum dono OS ke liye alag-alag userdata space create karenge. Apne phone ke variant ke hisab se calculations follow karein:
-### 📱 For 128GB Variant (Example Layout):
- * **Userdata (Slot A - Custom ROM):** 12.1 se 69.6
- * **Userdata_b (Slot B - Stock ROM):** 69.6 se 128
-*(Note: Agar aapka **256GB Variant** hai, to isi tarah space ko divide karke size calculate karein, jaise 12.1 se 134 aur 134 se 256).*
-### 1. Create New Partitions (Parted ke andar):
-```text
-mkpart userdata 12.1gb 69.6gb
-mkpart userdata 69.6gb 128gb
 
-```
-*(Apne variant ke calculated GB values hi enter karein).*
-### 2. Name the Partitions:
-Partitions ko sahi identity dene ke liye yeh commands run karein:
-```text
+---
+
+📐 Step 4 — Create New Partitions
+
+📱 Example Layout (128GB Variant)
+
+Partition	Size
+
+userdata	12.1GB → 69.6GB
+userdata_b	69.6GB → 128GB
+
+
+
+---
+
+➕ Create New Partitions
+
+mkpart userdata ext4 12.1gb 69.6gb
+mkpart userdata_b ext4 69.6gb 128gb
+
+> 256GB model में values अलग होंगी।
+
+
+
+
+---
+
+🏷️ Rename Partitions
+
 name 82 userdata
 name 83 userdata_b
 
-```
-### 3. Exit Parted:
-```text
+
+---
+
+🚪 Exit Parted
+
 quit
 
-```
-### 4. Format New Partitions to F2FS:
-Ab terminal (adb shell) me dono naye partitions ko f2fs filesystem me format karein:
-```bash
+
+---
+
+📂 Format Partitions
+
 make_f2fs /dev/block/sdc82
 make_f2fs /dev/block/sdc83
 
-```
-## 💾 Section 9: Step 5: Restoring Partition 83 Backup (sdc83 Restore)
-Naye partitions banne aur format hone ke baad, ab hum PC par save kiye gaye partition 83 ke backup ko wapas restore karenge:
- 1. **Push Backup Image to Phone:**
-   PC par CMD open karein aur yeh command run karein:
-```bash
+> F2FS Android performance बेहतर बनाता है।
+
+
+
+
+---
+
+💾 Step 5 — Restore Partition Backup
+
+📤 Push Backup Image
+
 adb push sdc83.img /sdcard/
 
-```
- 2. **Flash Backup to New Partition 83 (sdc83):**
-   Image push hone ke baad, use dd command se wapas original location par flash karein:
-```bash
+
+---
+
+♻️ Restore Backup
+
 adb shell dd if=/sdcard/sdc83.img of=/dev/block/sdc83
 
-```
-## 📦 Section 10: Step 6: Flashing the Dual Boot ROM
-Saare partitions taiyar aur restore hone ke baad, ab phone ko wapas fastboot mode me le jana hai:
- 1. **Reboot to Bootloader:**
-```bash
+> Restore पूरा होने तक इंतजार करें।
+
+
+
+
+---
+
+📦 Step 6 — Flash the Dual Boot ROM
+
+🔄 Reboot to Bootloader
+
 adb reboot bootloader
 
-```
- 2. **Flash the Modified ROM:**
-   Ab mere (Nikhil-Development) dwara provide ki gayi **tweaked/edited Fastboot Flashable Stock ROM** ko flash karein, jo user data_b aur baki settings ke sath safely dual boot run karegi.
-**Created and maintained by Nikhil-Development-Android**
-```
+
+---
+
+📂 Flash the Modified ROM
+
+Download the tweaked Fastboot Flashable Stock ROM provided by me
+(Nikhil-Development).
+
+> मेरे द्वारा दी गई modified ROM flash करें।
+
+
+
+
+---
+
+This special build is engineered to:
+
+Respect your new partition layout
+
+Properly use userdata_b for Stock OS
+
+Keep dual boot stable
+
+
+> यह build dual boot stability के लिए बनाई गई है।
+
+
+
+
+---
+
+👨‍💻 Credits
+
+Created & Maintained By
+
+Nikhil-Development-Android 🚀
