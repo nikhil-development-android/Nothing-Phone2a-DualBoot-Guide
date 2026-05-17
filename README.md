@@ -401,9 +401,8 @@ This special build is engineered to:
 
 ---
 
-👨‍💻 Credits
+## 👨‍💻 Credits & Acknowledgements
 
-Created & Maintained By
-Nikhil-Development-Android 🚀
-
-```
+* **Project Developer & Maintainer:** [Nikhil-Development-Android](https://github.com/Nikhil-Development-Android) 🚀
+* **TWRP Recovery Source Tree:** Huge thanks to [Sidharthify](https://github.com/sidharthify) for the Nothing Phone (2a) [pacman] device tree.
+* 
