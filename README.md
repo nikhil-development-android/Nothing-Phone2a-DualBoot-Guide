@@ -41,9 +41,10 @@ Dual Boot setup shuru karne ke liye aapke Nothing Phone (2a) ka bootloader unloc
 1. **Enable Developer Options:** Phone ki Settings -> About Phone me jayein aur `Build Number` par 7 baar click karein.
 2. **OEM Unlocking:** Settings -> System -> Developer Options me jakar `OEM Unlocking` aur `USB Debugging` ko ON kar dein.
 3. **Fastboot Mode:** Phone ko PC se connect karein aur command prompt (CMD) me yeh command run karke phone ko fastboot mode me dalein:
-   ```bash
-   adb reboot bootloader
-   4. **Unlock Command:** Fastboot mode me aane ke baad, PC par yeh command run karein:
+```bash
+adb reboot bootloader
+```
+ 4. **Unlock Command:** Fastboot mode me aane ke baad, PC par yeh command run karein:
 ```bash
 fastboot flashing unlock
 
@@ -151,7 +152,7 @@ mkpart userdata 69.6gb 128gb
 Partitions ko sahi identity dene ke liye yeh commands run karein:
 ```text
 name 82 userdata
-name 83 userdata
+name 83 userdata_b
 
 ```
 ### 3. Exit Parted:
@@ -189,10 +190,5 @@ adb reboot bootloader
 ```
  2. **Flash the Modified ROM:**
    Ab mere (Nikhil-Development) dwara provide ki gayi **tweaked/edited Fastboot Flashable Stock ROM** ko flash karein, jo user data_b aur baki settings ke sath safely dual boot run karegi.
-**Created and maintained by Nikhil-Development-Android**"""
-with open("README_Full_Guide.txt", "w", encoding="utf-8") as f:
-f.write(readme_content)
-print("File written successfully!")
+**Created and maintained by Nikhil-Development-Android**
 ```
-Your TXT file is ready
-[file-tag: code-generated-file-0-1779015131893652045]
