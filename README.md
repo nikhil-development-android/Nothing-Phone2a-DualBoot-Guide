@@ -1,6 +1,6 @@
 # 🚀 Nothing Phone (2a) Dual Boot Project
 
-> Advanced Dual Boot Setup Guide for Nothing Phone (2a) (pacman)
+> Dual Boot Setup Guide for Nothing Phone (2a) (pacman)
 
 ---
 
