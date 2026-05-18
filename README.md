@@ -97,13 +97,6 @@ Download the latest TWRP recovery image from the links below:
 🔗 **My Releases Page (Direct Download):**
 [https://github.com/Nikhil-Development-Android/releases](https://github.com/Nikhil-Development-Android/releases)
 
-Compiled twrp.img फाइल सीधे यहां से डाउनलोड करें।
-
-🔗 **TWRP Device Tree Source Code:**
-[https://github.com/sidharthify/twrp_device_nothing_pacman](https://github.com/sidharthify/twrp_device_nothing_pacman)
-
-अगर सोर्स कोड देखना या खुद बिल्ड करना चाहते हैं।
-
 ---
 
 ### 📥 Download Dual Boot ROM
@@ -417,5 +410,3 @@ This special build is engineered to:
 ## 👨‍💻 Credits & Acknowledgements
 
 * **Project Developer & Maintainer:** [Nikhil-Development-Android](https://github.com/Nikhil-Development-Android) 🚀
-* **TWRP Recovery Source Tree:** Huge thanks to [Sidharthify](https://github.com/sidharthify) for the Nothing Phone (2a) [pacman] device tree.
-* 
