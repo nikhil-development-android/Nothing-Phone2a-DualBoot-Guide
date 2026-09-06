@@ -24,11 +24,29 @@ adb reboot bootloader
 fastboot flashing unlock
 ```
 
-### Step 2: Flash TWRP Recovery
+### Step 2: Flash TWRP Recovery (and flash boot images)
+Flash TWRP to the vendor_boot slots, then (when ready) flash vendor_boot, boot and init_boot images to both slots A and B. Replace the .img filenames with your actual filenames if they differ.
+
 ```bash
+# Flash TWRP to vendor_boot slots (temporary recovery)
 fastboot flash vendor_boot_a twrp.img
 fastboot flash vendor_boot_b twrp.img
 fastboot reboot recovery
+
+# After booting to recovery (or when ready to flash your ROM), flash these to both slots:
+
+# Slot A
+fastboot flash vendor_boot_a vendor_boot.img
+fastboot flash boot_a boot.img
+fastboot flash init_boot_a init_boot.img
+
+# Slot B
+fastboot flash vendor_boot_b vendor_boot.img
+fastboot flash boot_b boot.img
+fastboot flash init_boot_b init_boot.img
+
+# Reboot device
+fastboot reboot
 ```
 
 ### Step 3: Check Current Partitions
@@ -76,23 +94,6 @@ adb shell make_f2fs /dev/block/sdc83
 ### Step 6: Flash Your ROM
 ```bash
 adb reboot bootloader
-```
-
-Flash vendor_boot, boot and init_boot to both slots (A and B). Replace the .img filenames with your actual filenames if they differ.
-
-```bash
-# Slot A
-fastboot flash vendor_boot_a vendor_boot.img
-fastboot flash boot_a boot.img
-fastboot flash init_boot_a init_boot.img
-
-# Slot B
-fastboot flash vendor_boot_b vendor_boot.img
-fastboot flash boot_b boot.img
-fastboot flash init_boot_b init_boot.img
-
-# Reboot device
-fastboot reboot
 ```
 
 ## Tips & Tricks
