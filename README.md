@@ -1,4 +1,4 @@
-# Nothing Phone 2a — Dual Partition Setup Guide
+# Nothing Phone 2a — Dual Rom Setup Guide
 
 This guide helps you create two separate partitions on your Nothing Phone 2a to store different ROMs.
 
