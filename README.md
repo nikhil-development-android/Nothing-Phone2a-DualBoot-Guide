@@ -30,21 +30,12 @@ Flash TWRP to the vendor_boot slots, then (when ready) flash vendor_boot, boot a
 ```bash
 # Flash TWRP to vendor_boot slots (temporary recovery)
 fastboot flash vendor_boot_a twrp.img
-fastboot flash vendor_boot_b twrp.img
-fastboot reboot recovery
-
-# After booting to recovery (or when ready to flash your ROM), flash these to both slots:
-
-# Slot A
-fastboot flash vendor_boot_a vendor_boot.img
 fastboot flash boot_a boot.img
 fastboot flash init_boot_a init_boot.img
-
-# Slot B
-fastboot flash vendor_boot_b vendor_boot.img
+fastboot flash vendor_boot_b twrp.img
 fastboot flash boot_b boot.img
 fastboot flash init_boot_b init_boot.img
-
+fastboot reboot recovery
 # Reboot device
 fastboot reboot
 ```
