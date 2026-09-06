@@ -1,83 +1,92 @@
-# Nothing Phone 2a — Dual Slot Setup
+# Nothing Phone 2a — Dual Partition Setup Guide
 
-Nothing Phone 2a mein two partitions create karke alag-alag ROM rakh sakte ho.
+This guide helps you create two separate partitions on your Nothing Phone 2a to store different ROMs.
 
-## ⚠️ Important
-- **Ye dual boot NAHI hai** — ek time mein ek hi ROM chalega
-- **Bootloader unlock karna padega**
-- **Sab data delete ho jayega** — backup le lo pehle
+## ⚠️ Important Notes
+- **This is NOT dual boot** — Only one ROM runs at a time
+- **Bootloader must be unlocked**
+- **All data will be deleted** — Backup everything before starting
+- **Join our support group:** https://t.me/nikki_chats
 
-## Kya Chahiye
-- Nothing Phone 2a (bootloader unlocked)
-- Computer (Windows/Linux/Mac)
+## Requirements
+- Nothing Phone 2a (with unlocked bootloader)
+- Computer (Windows, Linux, or Mac)
 - USB cable
-- TWRP, parted, mkfs.ext4
+- ADB and Fastboot tools installed
+- TWRP recovery, parted tool, mkfs.ext4
 
-## Steps
+## Step-by-Step Guide
 
-### 1. Bootloader Unlock
+### Step 1: Unlock Bootloader
+Connect your phone and run:
 ```bash
 adb reboot bootloader
 fastboot flashing unlock
 ```
 
-### 2. TWRP Flash Karo
+### Step 2: Flash TWRP Recovery
 ```bash
 fastboot flash vendor_boot_a twrp.img
 fastboot flash vendor_boot_b twrp.img
 fastboot reboot recovery
 ```
 
-### 3. Partition Setup
+### Step 3: Check Current Partitions
 ```bash
 adb push parted /sbin
 adb shell chmod 777 /sbin/parted
 adb shell parted /dev/block/sdc
 ```
 
-TWRP mein ye commands chalao:
+In TWRP, run these commands:
 ```
 unit gb
 print
 ```
 
-Partition 82 aur 83 ki details note kar lo.
+Note the details of partitions 82 and 83.
 
-### 4. Partitions Delete Karo
+### Step 4: Delete Old Partitions
 ```bash
 # Remove partition 82
 rm 82
 
-# Backup partition 83
+# Backup partition 83 first
 adb shell dd if=/dev/block/sdc83 of=/sdcard/proinfo.img
 adb pull /sdcard/proinfo.img
 
 # Remove partition 83
 adb shell parted /dev/block/sdc
 rm 83
+quit
 ```
 
-### 5. Naye Partitions Banao
-128GB ke liye:
+### Step 5: Create New Partitions
+For 128GB storage:
 ```bash
+adb shell parted /dev/block/sdc
 mkpart userdata ext4 12.1gb 69.6gb
 mkpart userdata_b ext4 69.6gb 128gb
 quit
 
-make_f2fs /dev/block/sdc82
-make_f2fs /dev/block/sdc83
+adb shell make_f2fs /dev/block/sdc82
+adb shell make_f2fs /dev/block/sdc83
 ```
 
-### 6. ROM Flash Karo
+### Step 6: Flash Your ROM
 ```bash
 adb reboot bootloader
-# Flash modified ROM via fastboot
+# Flash your modified ROM via fastboot
 ```
 
-## Tips
-- **OTA updates mat laga** — ROM corrupt hoga
-- **Hamesha backup rakho**
-- Kisi issues ke liye Telegram par join kar
+## Tips & Tricks
+- **Do NOT install OTA updates** — It will corrupt your setup
+- **Always keep backups** of your original partitions
+- **Stuck?** Join our Telegram support group: https://t.me/nikki_chats
+- Ask questions in the group if something goes wrong
 
 ## License
 MIT
+
+## Support
+For help and questions, join: **https://t.me/nikki_chats**
